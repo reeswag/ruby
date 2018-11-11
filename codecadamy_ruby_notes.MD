@@ -1,7 +1,3 @@
-# Codecadamy Learn Ruby Course
-
-
-
 
 # Broken Stuff
 
