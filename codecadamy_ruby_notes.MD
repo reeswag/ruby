@@ -387,6 +387,3 @@ case language
 end
 ```
 The else is what the case statement will do if it doesn't match any of its when statements to the case (in this case, the value of language).
-
-this is a test
-again another test
