@@ -153,6 +153,7 @@ end
 puts redacted_string
 ```
 
+------ 
 ## Methods
 
 A method is a reusable section of code written to perform a specific task in a program. You might be wondering why you need to separate your code into methods, rather than just writing everything out in one big chunk. It turns out there are a few good reasons to divide your programs into methods:
@@ -163,6 +164,8 @@ A method is a reusable section of code written to perform a specific task in a p
 
 When we learn more about objects, you'll find out there are a lot of interesting things we can do with methods in Ruby.
 
+
+--------
 ## .sort explained
 
 https://stackoverflow.com/questions/26581619/rubys-operator-and-sort-method 
@@ -226,7 +229,8 @@ Looking at the code inside of the <=> method, there must be a .score instance va
 
 As a final tidbit, Ruby sorts alphabetically by converting it to numerical values as well. It just considers any letter to be assigned the code from ASCII (meaning since upper case letters have lower numerical values on the ASCII code chart, upper case will be sorted by default to be first).
 Hope this helps!
-
+
+----------
 ## Default Parameters
 Let's start with the new bit of code you saw in exercise 1:
 ```
@@ -242,7 +246,7 @@ You don't have to settle for nil as a default value, however. If you create your
 my_hash = Hash.new("Trady Blix")
 Now if you try to access a nonexistent key in my_hash, you'll get "Trady Blix" as a result.
 
-
+------------
 ## What's a Symbol?
 
 You can think of a Ruby symbol as a sort of name. It's important to remember that symbols aren't strings:
@@ -293,8 +297,9 @@ Besides using .to_sym, you can also use .intern. This will internalize the strin
 "hello".intern # ==> :hello
 ```
 When you're looking at someone else's code, you might see .to_sym or .intern (or both!) when converting strings to symbols.
- 
- ## Filtering Hashes
+
+----
+## Filtering Hashes
 
 We know how to grab a specific value from a hash by specifying the associated key, but what if we want to filter a hash for values that meet certain criteria? For that, we can use .select.
 
@@ -337,6 +342,7 @@ good_movies = movie_ratings.select do |key, value|
   value > 3
 end
 ```
+----
 ## Iterating Out Parts of a Hash
 
 Ruby includes two hash methods, .each_key and .each_value, that do exactly what you'd expect:
@@ -363,3 +369,21 @@ movie_ratings = {
 movie_ratings.each_key {|key| puts key} # puts the name of each movie
 movie_ratings.each_value {|value| puts value} # puts the rating of each movie.
 ```
+----------
+## The Case Statement
+
+if and else are powerful, but we can get bogged down in ifs and elsifs if we have a lot of conditions to check. Thankfully, Ruby provides us with a concise alternative: the case statement. The syntax looks like this:
+
+```
+case language
+  when "JS"
+    puts "Websites!"
+  when "Python"
+    puts "Science!"
+  when "Ruby"
+    puts "Web apps!"
+  else
+    puts "I don't know!"
+end
+```
+The else is what the case statement will do if it doesn't match any of its when statements to the case (in this case, the value of language).
