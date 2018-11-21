@@ -128,6 +128,23 @@ case choice
   puts "Error! Please review input."
 end
 ```
+
+---
+
+## Simple Coin Toss game
+
+```
+assignments = {heads: 0, tails: 1}
+puts "heads or tails?"
+user_choice = gets.chomp.downcase.to_sym
+flip = rand(2)
+puts "heads" if flip == 0 
+puts "tails" if flip == 1
+puts "you lose" if assignments[user_choice] != flip
+puts "you win" if assignments[user_choice] == flip
+```
+-----
+
 # Useful stuff
 ## The .split Method - Dividing and replacing parts of a user input
 Next, we'll want to divide the user's input into individual words.
@@ -149,6 +166,9 @@ words.each do |letter|
   end
 end
 ```
+----- 
+
+
 ### Additional questions:
 What could you do to make sure your redactor redacts a word regardless of whether it's upper case or lower case?
 ```
@@ -436,3 +456,35 @@ case language
 end
 ```
 The else is what the case statement will do if it doesn't match any of its when statements to the case (in this case, the value of language).
+
+-----
+## Simpler 'If'
+You've seen the Ruby if statement before:
+```
+if condition
+  # Do something!
+end
+```
+If the "do something" is a short, simple expression, however, we can move it up into a single line (as you saw in the last exercise). The syntax looks like this:
+expression if boolean
+Ruby will expect an expression followed by if followed by a boolean. The order is important. You can do this:
+puts "It's true!" if true
+but not this:
+```
+if true puts "It's true!"
+```
+
+It's also important to note that you don't need an end when you write your if statement all on one line.
+
+### Eg Simple Coin Toss game
+
+```
+assignments = {heads: 0, tails: 1}
+puts "heads or tails?"
+user_choice = gets.chomp.downcase.to_sym
+flip = rand(2)
+puts "heads" if flip == 0 
+puts "tails" if flip == 1
+puts "you lose" if assignments[user_choice] != flip
+puts "you win" if assignments[user_choice] == flip
+```
