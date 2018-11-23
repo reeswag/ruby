@@ -1,151 +1,8 @@
-
-# Broken Stuff
-
-# Working Stuff
-## Looped if statement converting user input into Daffy speak
-
-```
-while true
-  puts "Talk to me Daffy! "
-  user_input = gets.chomp
-  user_input.downcase!
-  if user_input.include? "s"
-    user_input.gsub!(/s/,"th")
-    puts "Daffy you have said: #{user_input}"
-    break
-  end
-  puts "No “s” to deal with, try again!"
-end
-```
-## Mini Game - Can You Break Through the Wall? - using variables
-
-```
-# weapon list with attack values
-gun = 32
-bat = 20
-fist = 4
-# obstacle with health value of "10"
-wall = 10
-print "You need to get through this wall. What weapon would you like to try?
-Your fist, bat or gun? "
-user_input = gets.chomp
-# function linking the user input to the variables
-if user_input.downcase == "gun"
-        user_input_var = gun
-    elsif user_input.downcase == "bat"
-        user_input_var = bat
-    elsif user_input.downcase == "fist"
-        user_input_var = fist
-    else
-        print "Try a different input"
-end
-# Test evaluating if the user breaks through the wall?
-if user_input_var < wall 
-    print "That didn't work. "
-    elsif user_input_var == wall
-        print "Try again! There’s a crack in the wall. "
-    else user_input_var > wall
-        print "You broke through the wall! "
-end
-puts "Your weapon of choice was: #{user_input}"
-```
-
-## Mini Game - Can You Break Through the Wall? - updated using hashes
-
-```
-# Defining the variables
-variables = {
- "gun" => 32,
- "bat" => 20,
- "fist" => 4,
- "wall" => 10,
-}
-
-# Taking user input
-print "You need to get through this wall. What weapon would you like to try?
-Your fist, bat or gun? "
-user_input = gets.chomp
-
-# Testing user input against wall strength 
-if variables[user_input] < variables["wall"]
- print "That didn't work. "
-elsif variables[user_input] == variables["wall"]
- print "Try again! There’s a crack in the wall. "
-else variables[user_input] > variables["wall"]
- print "You broke through the wall! "
-end
-
-# Concluding Statement
-puts "Your weapon of choice was a: #{user_input}"
-```
------
-
-## Movie Database
-```
-movies = {Momento: 10}
-puts "What would you like to do?"
-puts "Add a movie? - type 'add' - " 
-puts "Update a movie? - type 'update' - "
-puts "Display a moveie? - type 'display' - "
-puts "Delete a movie? - type 'delete' - " 
-choice = gets.chomp.downcase
-
-case choice
-  when "add"
-  	puts "Enter movie title"
-  	title = gets.chomp.to_sym.capitalize
-  	puts "Enter movie rating"
-  	rating = gets.chomp.to_i
-  	if movies[title].nil?
-  		movies[title] = rating
-  		puts "#{title} has been added, with a rating of: #{rating}."
-    else
-      puts "#{title} has already been added, with a rating of #{movies[title]}."
-	end
-	when "update"
-  	puts "Enter movie title"
-  	title = gets.chomp.to_sym.capitalize
-  	if movies[title].nil?
-      puts "#{title} has not previously been rated, please add to database first."
-    else 
-      puts "Enter movie rating"
-  		rating = gets.chomp.to_i
-      movies[title] = rating
-      puts "#{title} has been updated with a rating of: #{rating}."
-    end
-	when "display"
-  	movies.each {|movie, rating| puts "#{movie}: #{rating}"}
-	when "delete"
-  	puts "Enter movie title"
-  	title = gets.chomp.to_sym.capitalize
-  	if movies[title].nil?
-      puts "#{title} does not exist within the database."
-		else
-      movies.delete(title)
-      puts "#{title} has been removed from the database."
-    end
-  else
-  puts "Error! Please review input."
-end
-```
-
----
-
-## Simple Coin Toss game
-
-```
-assignments = {heads: 0, tails: 1}
-puts "heads or tails?"
-user_choice = gets.chomp.downcase.to_sym
-flip = rand(2)
-puts "heads" if flip == 0 
-puts "tails" if flip == 1
-puts "you lose" if assignments[user_choice] != flip
-puts "you win" if assignments[user_choice] == flip
-```
------
 
 # Useful stuff
+## Jargon
+**Refactoring** is just a fancy way of saying we're improving the structure or appearance of our code without changing what it actually does.
+
 ## The .split Method - Dividing and replacing parts of a user input
 Next, we'll want to divide the user's input into individual words.
 
@@ -167,7 +24,6 @@ words.each do |letter|
 end
 ```
 ----- 
-
 
 ### Additional questions:
 What could you do to make sure your redactor redacts a word regardless of whether it's upper case or lower case?
@@ -438,8 +294,9 @@ movie_ratings = {
 movie_ratings.each_key {|key| puts key} # puts the name of each movie
 movie_ratings.each_value {|value| puts value} # puts the rating of each movie.
 ```
-----------
-## The Case Statement
+---
+## Shortening "If"
+### The Case Statement
 
 if and else are powerful, but we can get bogged down in ifs and elsifs if we have a lot of conditions to check. Thankfully, Ruby provides us with a concise alternative: the case statement. The syntax looks like this:
 
@@ -457,8 +314,31 @@ end
 ```
 The else is what the case statement will do if it doesn't match any of its when statements to the case (in this case, the value of language).
 
------
-## Simpler 'If'
+To make the code more concise, you can fold the statements:
+
+```
+case language
+  when "JS" then puts "Websites!"
+  when "Python" then puts "Science!"
+  when "Ruby" then puts "Web apps!"
+  else puts "I don't know!"
+end
+```
+another example:
+```
+puts "Hello there!"
+greeting = gets.chomp.downcase
+
+# Add your case statement below!
+case greeting 
+  when "english" then puts "Hello!"
+  when "french" then puts "Bonjour!"
+  when "german" then puts "Guten Tag!"
+  when "finnish" then puts "Haloo!"
+  else puts "I don't know that language!"
+end
+```
+### if and unless 
 You've seen the Ruby if statement before:
 ```
 if condition
@@ -476,7 +356,7 @@ if true puts "It's true!"
 
 It's also important to note that you don't need an end when you write your if statement all on one line.
 
-### Eg Simple Coin Toss game
+#### Eg Simple Coin Toss game
 
 ```
 assignments = {heads: 0, tails: 1}
@@ -488,3 +368,307 @@ puts "tails" if flip == 1
 puts "you lose" if assignments[user_choice] != flip
 puts "you win" if assignments[user_choice] == flip
 ```
+Alternatively, the unless condition works the other way around:
+
+```
+assignments = {heads: 0, tails: 1}
+puts "heads or tails?"
+user_choice = gets.chomp.downcase.to_sym
+flip = rand(2)
+puts "heads" if flip == 0 
+puts "tails" if flip == 1
+puts "you lose" unless assignments[user_choice] == flip
+puts "you win" unless assignments[user_choice] != flip
+```
+### Ternary Conditional Expressions
+
+An even more concise version of if/else is the ternary conditional expression. It's called "ternary" because it takes ***three arguments***: a boolean, an expression to evaluate if the boolean is true, and an expression to evaluate if the boolean is false.
+The syntax looks like this:
+boolean ? Do this if true: Do this if false
+An example might be:
+
+#### Eg
+```
+puts 3 < 4 ? "3 is less than 4!" : "3 is not less than 4."
+```
+#### Eg
+
+```
+assignments = {heads: 0, tails: 1}
+puts "heads or tails?"
+user_choice = gets.chomp.downcase.to_sym
+flip = rand(2)
+puts "heads" if flip == 0 
+puts "tails" if flip == 1
+puts assignments[user_choice] == flip ? "you win" : "you lose"
+```
+#### Eg
+```
+print "Enter a number: "
+i = gets.to_i
+puts "Your number is " +
+(i > 10 ? "greater than" : "less than or equal to") +
+" 10"
+```
+---
+## Conditional Assignment
+
+We've seen that we can use the = operator to assign a value to a variable. But what if we only want to assign a variable if it hasn't already been assigned? 
+For this, we can use the conditional assignment operator: ||=. It's made up of the or (||) logical operator and the normal = assignment operator.
+
+#### Eg
+```
+favorite_language ||= "ruby"
+puts favorite_language
+```
+---
+
+## Short-Circuit Evaluation
+Recall that we have the boolean operators and (&&) and or (||) in Ruby. The && operator only returns true when the expressions on both sides of the operator are true; || returns true when one or the other or both of the expressions involved are true. 
+Ruby does this via short-circuit evaluation. That means that Ruby doesn't look at both expressions unless it has to; if it sees
+```
+false && true
+```
+it stops reading as soon as it sees && because it knows false && anything must be false.
+
+Remember how Ruby returns the result of the last expression it evaluated? We can use that to show short-circuit evaluation in action.
+
+#### Eg
+```
+def a
+  puts "A was evaluated!"
+  return true
+end
+
+def b
+  puts "B was also evaluated!"
+  return true
+end
+
+puts a || b
+puts "------"
+puts a && b
+```
+results in:
+```
+A was evaluated!
+true
+------
+A was evaluated!
+B was also evaluated!
+true
+```
+
+Because only false and nil are false values in Ruby, both strings are treated as true. Ruby knows true || anything is true, so in a || b, it only evaluates a. Since it might encounter a false in the b part of a && b, however, it has to evaluate b, which we see in the result!
+
+----
+
+## Basic Iterations techniques
+Sooner or later, you're going to need to perform a repetitive task in your programs. Many programming languages allow you to do this with a for loop, and while Ruby does include for loops, there are better tools available to us.
+
+### .times
+If we want to do something a specific number of times, we can use the .times method, like so:
+```
+5.times { puts "Odelay!" }
+# Prints 5 "Odelay!"s on separate lines
+If we want to repeat an action for every element in a collection, we can use .each:
+[1, 2, 3].each { |x| puts x * 10 }
+# Prints 10, 20, 30 on separate lines
+```
+#### Eg
+```
+my_array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+my_array.each {|x| puts x if x%2==0}
+# puts only even numbers from the array
+```
+### .upto .downto
+If we know the range of numbers we'd like to include, we can use .upto and .downto. This is a much more Rubyist solution than trying to use a for loop that stops when a counter variable hits a certain value.
+We might use .upto to print out a specific range of values:
+```
+95.upto(100) { |num| print num, " " }
+# Prints 95 96 97 98 99 100
+and we can use .downto to do the same thing with descending values.
+```
+## Debugging  
+### Call and Response
+Remember when we mentioned that symbols are awesome for referencing method names? Well, .respond_to? takes a symbol and returns true if an object can receive that method and false otherwise. For example,
+```
+[1, 2, 3].respond_to?(:push)
+would return true, since you can call .push on an array object. However,
+[1, 2, 3].respond_to?(:to_sym)
+would return false, since you can't turn an array into a symbol.
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Broken Stuff
+
+# Working Stuff
+## Looped if statement converting user input into Daffy speak
+
+```
+while true
+  puts "Talk to me Daffy! "
+  user_input = gets.chomp
+  user_input.downcase!
+  if user_input.include? "s"
+    user_input.gsub!(/s/,"th")
+    puts "Daffy you have said: #{user_input}"
+    break
+  end
+  puts "No “s” to deal with, try again!"
+end
+```
+## Mini Game - Can You Break Through the Wall? - using variables
+
+```
+# weapon list with attack values
+gun = 32
+bat = 20
+fist = 4
+# obstacle with health value of "10"
+wall = 10
+print "You need to get through this wall. What weapon would you like to try?
+Your fist, bat or gun? "
+user_input = gets.chomp
+# function linking the user input to the variables
+if user_input.downcase == "gun"
+        user_input_var = gun
+    elsif user_input.downcase == "bat"
+        user_input_var = bat
+    elsif user_input.downcase == "fist"
+        user_input_var = fist
+    else
+        print "Try a different input"
+end
+# Test evaluating if the user breaks through the wall?
+if user_input_var < wall 
+    print "That didn't work. "
+    elsif user_input_var == wall
+        print "Try again! There’s a crack in the wall. "
+    else user_input_var > wall
+        print "You broke through the wall! "
+end
+puts "Your weapon of choice was: #{user_input}"
+```
+
+## Mini Game - Can You Break Through the Wall? - updated using hashes
+
+```
+# Defining the variables
+variables = {
+ "gun" => 32,
+ "bat" => 20,
+ "fist" => 4,
+ "wall" => 10,
+}
+
+# Taking user input
+print "You need to get through this wall. What weapon would you like to try?
+Your fist, bat or gun? "
+user_input = gets.chomp
+
+# Testing user input against wall strength 
+if variables[user_input] < variables["wall"]
+ print "That didn't work. "
+elsif variables[user_input] == variables["wall"]
+ print "Try again! There’s a crack in the wall. "
+else variables[user_input] > variables["wall"]
+ print "You broke through the wall! "
+end
+
+# Concluding Statement
+puts "Your weapon of choice was a: #{user_input}"
+```
+-----
+
+## Movie Database
+```
+movies = {Momento: 10}
+puts "What would you like to do?"
+puts "Add a movie? - type 'add' - " 
+puts "Update a movie? - type 'update' - "
+puts "Display a moveie? - type 'display' - "
+puts "Delete a movie? - type 'delete' - " 
+choice = gets.chomp.downcase
+
+case choice
+  when "add"
+  	puts "Enter movie title"
+  	title = gets.chomp.to_sym.capitalize
+  	puts "Enter movie rating"
+  	rating = gets.chomp.to_i
+  	if movies[title].nil?
+  		movies[title] = rating
+  		puts "#{title} has been added, with a rating of: #{rating}."
+    else
+      puts "#{title} has already been added, with a rating of #{movies[title]}."
+	end
+	when "update"
+  	puts "Enter movie title"
+  	title = gets.chomp.to_sym.capitalize
+  	if movies[title].nil?
+      puts "#{title} has not previously been rated, please add to database first."
+    else 
+      puts "Enter movie rating"
+  		rating = gets.chomp.to_i
+      movies[title] = rating
+      puts "#{title} has been updated with a rating of: #{rating}."
+    end
+	when "display"
+  	movies.each {|movie, rating| puts "#{movie}: #{rating}"}
+	when "delete"
+  	puts "Enter movie title"
+  	title = gets.chomp.to_sym.capitalize
+  	if movies[title].nil?
+      puts "#{title} does not exist within the database."
+		else
+      movies.delete(title)
+      puts "#{title} has been removed from the database."
+    end
+  else
+  puts "Error! Please review input."
+end
+```
+
+---
+
+## Simple Coin Toss game
+
+```
+assignments = {heads: 0, tails: 1}
+puts "heads or tails?"
+user_choice = gets.chomp.downcase.to_sym
+flip = rand(2)
+puts "heads" if flip == 0 
+puts "tails" if flip == 1
+puts "you lose" if assignments[user_choice] != flip
+puts "you win" if assignments[user_choice] == flip
+```
+-----
