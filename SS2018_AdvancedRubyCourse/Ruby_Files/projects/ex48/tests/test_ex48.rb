@@ -1,10 +1,13 @@
-require "./lib/NAME.rb"
+require "./lib/lexicon.rb"
 require "test/unit"
 
-class TestNAME < Test::Unit::TestCase
+class TestLexicon < Test::Unit::TestCase
 
-  def test_sample
-    assert_equal(4, 2+2)
+  def test_directions()
+    assert_equal(Lexicon.scan("north"), [['direction', 'north']])
+
+   result = Lexicon.scan("north south east")
+   assert_equal(result, [['direction', 'north'], ['direction', 'south'], ['direction', 'east']])
   end
 
 end
