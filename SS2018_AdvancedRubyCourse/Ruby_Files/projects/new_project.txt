@@ -1,0 +1,8 @@
+cp -r skeleton ex49
+cd ex49
+mv NAME.gemspec ex49.gemspec
+mv bin/NAME bin/ex49
+mv tests/test_NAME.rb tests/test_ex49.rb
+mv lib/NAME lib/ex49
+mv lib/NAME.rb lib/ex49.rb
+find . -name "*NAME*" -print
