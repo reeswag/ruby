@@ -1,7 +1,7 @@
 def peek(word_list)
     if word_list #where word_list != nil, this will will run
         word = word_list[0] # isolates the 1st words pair
-        return word # #returns the identifier from the word pair, i.e. 'noun', 'verb' etc.
+        return word[0] # #returns the identifier from the word pair, i.e. 'noun', 'verb' etc.
     else
         return nil
     end
