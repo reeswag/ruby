@@ -100,3 +100,13 @@ p y
 z = parse_sentence([['stop', 'the'], ['noun', 'bear'], ['verb', 'sits'], ['stop', 'on' ], ['stop', 'the'], ['noun', 'human']])
 p z 
 puts x.obj
+
+=begin
+
+Outstanding Study Drills:
+Change the parse_ methods and try to put them into a class rather than use them just as methods. Which design do you like better?
+Make the parser more error-resistant so that you can avoid annoying your users if they type words your lexicon doesn't understand.
+Improve the grammar by handling more things like numbers.
+Think about how you might use this Sentence class in your game to do more fun things with a user's input.
+
+=end
