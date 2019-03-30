@@ -86,5 +86,4 @@ class TestParser < Test::Unit::TestCase
             end
         end
     end
-
 end
