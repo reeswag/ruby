@@ -14,10 +14,14 @@ class Sentence
 end
 
 def peek(word_list)
-    if word_list #where word_list != nil, this will will run
-        word = word_list[0] # isolates the 1st words pair
-        return word[0] # #returns the identifier from the word pair, i.e. 'noun', 'verb' etc.
-    else
+    begin
+        if word_list #where word_list != nil, this will will run
+            word = word_list[0] # isolates the 1st words pair
+            return word[0] # #returns the identifier from the word pair, i.e. 'noun', 'verb' etc.
+        else
+            return nil
+        end
+    rescue
         return nil
     end
 end
@@ -74,7 +78,7 @@ def parse_subject(word_list)
     elsif next_word == 'verb'
         return ['noun', 'player']
     else
-        raise ParserError.new("Expected a verb next.")
+        raise ParserError.new("Expected a noun or verb next.")
     end
 end
 
@@ -95,4 +99,4 @@ y = parse_sentence([['noun', 'bear'], ['verb', 'eats'], ['noun', 'human']])
 p y 
 z = parse_sentence([['stop', 'the'], ['noun', 'bear'], ['verb', 'sits'], ['stop', 'on' ], ['stop', 'the'], ['noun', 'human']])
 p z 
-
+puts x.obj
