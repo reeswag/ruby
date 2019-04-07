@@ -20,3 +20,21 @@ post '/hello/' do # the post indicates that we will be recieving a form
     erb :index, :locals => {'greeting' => greeting, 'name' => name} # Passes the above parameters to the index template.
 end
 
+get '/upload/' do
+    erb :upload_form
+end
+
+post '/save_image' do
+    if params[:file]
+        filename = params[:file][:filename]
+        tempfile = params[:file][:tempfile]
+        target = "./static/images/#{filename}"
+      
+        File.open(target, 'wb') {|f| f.write tempfile.read }
+        erb :show_image, :locals => {'filename' => filename}
+    end
+end
+
+get '/viewer/' do
+    erb :show_image, :locals => {'filename' => filename}
+end
