@@ -1,11 +1,11 @@
 <body class='container'>
     <p>What's for dinner?</p>
-    <form action='cast' method='post'>
+    <form action='cast' method='post'> 
         <ul class='unstyled'>
             <% $choices.each do |id, text| %>
                 <li>
                     <label class='radio'>
-                        <input type='radio' name='vote' value='<%= id %>' id='vote_<%= id %>'>
+                        <input type='radio' name='vote' value='<%= id %>' id='vote_<%= id %>'> <%# uses a radio button form to allow the user to select between each iteration of the choices hash %>
                         <%= text %>
                     </label>
                 </li>

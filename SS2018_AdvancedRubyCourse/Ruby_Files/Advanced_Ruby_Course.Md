@@ -1179,3 +1179,25 @@ The test is run from the project base directory as follows:
 ```
 rake test
 ```
+
+#### Integrating Ruby into forms with Sinatra
+
+WIthin the base app:
+```
+choices = {
+    'HAM' => 'Hamburger',
+    'PIZ' => 'Pizza',
+    'CUR' => 'Curry',
+    'NOO' => 'Noodles',
+    }
+```
+Within the appropriate view:
+```
+<% choices.each do |id, text| %>
+  <li>
+    <label class='radio'>
+      <input type='radio' name='vote' value='<%= id %>' id='vote_<%= id %>'><%= text %>
+    </label>
+  </li>
+<% end %>
+```
