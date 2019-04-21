@@ -1,40 +1,39 @@
 require 'sinatra'
+require './lib/gothonweb/map.rb'
 
 set :port, 8080
 set :static, true
 set :public_folder, "static"
 set :views, "views"
+enable :sessions
+set :session_secret, 'BADSECRET'
 
-get '/' do # this is the handler - it specifies what happens when you visit a certain page
-    return 'Hello world'
+get '/' do
+    session[:room] = 'START' # createst a new session at the start of the game
+    redirect to('/game') # initiates the game
 end
 
-get '/hello/' do
-    erb :hello_form
-end
-
-post '/hello/' do # the post indicates that we will be recieving a form 
-    greeting = params[:greeting] || "Hi There" # Takes the greeting parameter from the form
-    name = params[:name] || "Nobody" # Takes the name parameter from the form
-
-    erb :index, :locals => {'greeting' => greeting, 'name' => name} # Passes the above parameters to the index template.
-end
-
-get '/upload/' do
-    erb :upload_form
-end
-
-post '/save_image' do
-    if params[:file]
-        filename = params[:file][:filename]
-        tempfile = params[:file][:tempfile]
-        target = "./static/images/#{filename}"
-      
-        File.open(target, 'wb') {|f| f.write tempfile.read }
-        erb :show_image, :locals => {'filename' => filename}
+get '/game' do
+    room = Map::load_room(session) # assignes the session map to the room variable
+    if room
+        erb :show_room, :locals => {:room => room}
+    else
+        erb :you_died
     end
 end
 
-get '/viewer/' do
-    erb :show_image, :locals => {'filename' => filename}
+post '/game' do
+    room = Map::load_room(session)
+    action = params[:action]
+    if room
+        next_room = room.go(action) || room.go("*") # takes the user input and follows the appropriate path
+
+        if next_room
+            Map::save_room(session, next_room) # saves the next_room to the game session
+        end
+
+        redirect to('/game') # cycles back to the game and :show_room view with the latest session map
+    else
+        erb :you_died
+    end
 end

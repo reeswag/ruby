@@ -63,9 +63,3 @@ class TestMap < Test::Unit::TestCase
   end
 
 end
-=begin
-@@scenes = {'home' => Home.new(), 'bar' => Bar.new(), 'sleep' => Sleep.new(), 'kiting' => Kiting.new(), 'credits' => Credits.new}
-
-
-
-=end
