@@ -113,8 +113,11 @@ module Map
         )
 
     ESCAPE_POD.add_paths({
+        '1' => THE_END_LOSER,
         '2' => THE_END_WINNER,
-        '*' => THE_END_LOSER
+        '3' => THE_END_LOSER,
+        '4' => THE_END_LOSER,
+        '5' => THE_END_LOSER
     })
     
     GENERIC_DEATH = Room.new("death", "You died.")
@@ -125,7 +128,7 @@ module Map
     })
 
     LASER_WEAPON_ARMORY.add_paths({
-        '0132' => THE_BRIDGE,
+        '123' => THE_BRIDGE,
         '*' => GENERIC_DEATH
     })
 

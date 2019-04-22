@@ -9,7 +9,8 @@ enable :sessions
 set :session_secret, 'BADSECRET'
 
 get '/' do
-    session[:room] = 'START' # createst a new session at the start of the game
+    scene = params[:scene] || 'START'
+    session[:room] = scene # createst a new session at the start of the game
     redirect to('/game') # initiates the game
 end
 
