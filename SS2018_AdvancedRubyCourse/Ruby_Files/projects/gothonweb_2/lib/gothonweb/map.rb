@@ -92,14 +92,14 @@ module Map
         """)
     
     
-    THE_END_WINNER = Room.new("The End - Winner Winner Chicken Dinner",
+    THE_END_WINNER = Room.new("The End",
         """
         You jump into pod 2 and hit the eject button.
         The pod easily slides out into space heading to
         the planet below.  As it flies to the planet, you look
         back and see your ship implode then explode like a
         bright star, taking out the Gothon ship at the same
-        time.  You won!
+        time. Winner winner chicken dinner!
         """)
     
     

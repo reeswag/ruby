@@ -25,7 +25,7 @@ class TestApp < Test::Unit::TestCase
             ['START', 'tell a joke', 'Laser Weapon Armory'],
             ['LASER_WEAPON_ARMORY', '123' , 'The Bridge'],
             ['THE_BRIDGE', 'slowly place the bomb', "Escape Pod"],
-            ['ESCAPE_POD','2', "The End - Winner Winner Chicken Dinner"]
+            ['ESCAPE_POD','2', "The End" && "Winner winner chicken dinner"]
           ]
         
         @test_array.each do |x|
