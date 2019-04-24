@@ -20,18 +20,21 @@ class TestApp < Test::Unit::TestCase
     def test_engine
     end
 
-    def test_start
-        @test_action = 'tell a joke'
-        @test_name = 'Laser Weapon Armory'
-        get '/', params={:scene => 'THE_BRIDGE'}
-        follow_redirect!
-        p last_response.body
-=begin get '/game', params={:action => @test_action}
-        post '/game', params={:action => @test_action}
-        assert last_response.ok?
-        p last_response.body
-        assert last_response.body.include?(@test_name)
-=end
+    def test_engine 
+        @test_array = [     #[scene, correct action, desired_outcome]
+            ['START', 'tell a joke', 'Laser Weapon Armory'],
+            ['LASER_WEAPON_ARMORY', '123' , 'The Bridge'],
+            ['THE_BRIDGE', 'slowly place the bomb', "Escape Pod"],
+            ['ESCAPE_POD','2', "The End - Winner Winner Chicken Dinner"]
+          ]
+        
+        @test_array.each do |x|
+            @scene, @correct_action, @desired_outcome = x[0], x[1], x[2]
+            get '/', params={:scene => @scene}
+            follow_redirect!
+            post '/game', params={:action => @correct_action}
+            follow_redirect!
+            assert last_response.body.include?(@desired_outcome)
+        end
     end
-
 end

@@ -92,7 +92,7 @@ module Map
         """)
     
     
-    THE_END_WINNER = Room.new("The End",
+    THE_END_WINNER = Room.new("The End - Winner Winner Chicken Dinner",
         """
         You jump into pod 2 and hit the eject button.
         The pod easily slides out into space heading to
