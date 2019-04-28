@@ -100,7 +100,31 @@ module Map
         back and see your ship implode then explode like a
         bright star, taking out the Gothon ship at the same
         time. Winner winner chicken dinner!
-        """)
+
+            .                                            .              
+            *   .                  .              .        .   *          .        
+        .         .                     .       .           .      .        .     
+            o                             .                   .                 
+                .              .                  .           .                    
+                0     .                                                           
+                        .          .                 ,                ,    ,       
+        .          \\          .                         .                          
+            .      \\   ,                                                          
+        .          o     .                 .                   .            .    
+            .         \                 ,             .                .           
+                    #\\##\\#      .                              .        .        
+                    #  #O##\###                .                        .          
+        .        #*#  #\\##\###                       .                     ,     
+            .   ##*#  #\##\##               .                     .             
+            .      ##*#  #o##\#         .                             ,       .   
+                .     *#  #\#     .                    .             .          , 
+                            \          .                         .                
+    ____^/\\___^--____/\\____O______________/\\/\\---/\\___________---______________ 
+        /\\^   ^  ^    ^                  ^^ ^  '\\ ^          ^       ---         
+                --           -            --  -      -         ---  __       ^     
+        --  __                      ___--  ^  ^
+        """
+        )
     
     
     THE_END_LOSER = Room.new("The End",
@@ -113,28 +137,67 @@ module Map
         )
 
     ESCAPE_POD.add_paths({
-        '1' => THE_END_LOSER,
-        '2' => THE_END_WINNER,
-        '3' => THE_END_LOSER,
-        '4' => THE_END_LOSER,
-        '5' => THE_END_LOSER
+        '*' => THE_END_LOSER,
+        '2' => THE_END_WINNER
     })
     
-    GENERIC_DEATH = Room.new("death", "You died.")
+    GENERIC_DEATH = Room.new("Death", "You died.")
+
+    SHOOT_DEATH = Room.new("Death", 
+        """
+        Quick on the draw you yank out your blaster and fire it at the Gothon.
+        His clown costume is flowing and moving around his body, which throws
+        off your aim.  Your laser hits his costume but misses him entirely.  This
+        completely ruins his brand new costume his mother bought him, which
+        makes him fly into an insane rage and blast you repeatedly in the face until
+        you are dead.  Then he eats you.
+        """
+        )
+
+    DODGE_DEATH = Room.new("Death", 
+        """
+        Like a world class boxer you dodge, weave, slip and slide right
+        as the Gothon's blaster cranks a laser past your head.
+        In the middle of your artful dodge your foot slips and you
+        bang your head on the metal wall and pass out.
+        You wake up shortly after only to die as the Gothon stomps on
+        your head and eats you.
+        """
+        )
+        
+    CODE_DEATH = Room.new("Death", 
+        """
+        The lock buzzes one last time and then you hear a sickening
+        melting sound as the mechanism is fused together.
+        You decide to sit there, and finally the Gothons blow up the
+        ship from their ship and you die.
+        """
+        )
     
+    BOMB_DEATH = Room.new("Death", 
+        """
+        In a panic you throw the bomb at the group of Gothons
+        and make a leap for the door.  Right as you drop it a
+        Gothon shoots you right in the back killing you.
+        As you die you see another Gothon frantically try to disarm
+        the bomb. You die knowing they will probably blow up when
+        it goes off.
+        """  
+        )
+
     THE_BRIDGE.add_paths({
-        'throw the bomb' => GENERIC_DEATH,
+        'throw the bomb' => BOMB_DEATH,
         'slowly place the bomb' => ESCAPE_POD
     })
 
     LASER_WEAPON_ARMORY.add_paths({
         '123' => THE_BRIDGE,
-        '*' => GENERIC_DEATH
+        '*' => CODE_DEATH
     })
 
     CENTRAL_CORRIDOR.add_paths({
-        'shoot!' => GENERIC_DEATH,
-        'dodge!' => GENERIC_DEATH,
+        'shoot!' => SHOOT_DEATH,
+        'dodge!' => DODGE_DEATH,
         'tell a joke' => LASER_WEAPON_ARMORY
     })
 
@@ -152,6 +215,10 @@ module Map
         'THE_END_WINNER' => THE_END_WINNER,
         'THE_END_LOSER' => THE_END_LOSER,
         'START' => START,
+        'SHOOT_DEATH' => SHOOT_DEATH,
+        'DODGE_DEATH' => DODGE_DEATH,
+        'CODE_DEATH' => CODE_DEATH,
+        'BOMB_DEATH' => BOMB_DEATH
     }
 
     def Map::load_room(session) # Given a session this will return the right room or nil

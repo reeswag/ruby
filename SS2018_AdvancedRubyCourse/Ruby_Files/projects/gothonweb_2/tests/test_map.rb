@@ -36,8 +36,8 @@ class TestMap < Test::Unit::TestCase
   end
 
   def test_gothon_game_map()
-    assert_equal(Map::GENERIC_DEATH, Map::START.go('shoot!'))
-    assert_equal(Map::GENERIC_DEATH, Map::START.go('dodge!'))
+    assert_equal(Map::SHOOT_DEATH, Map::START.go('shoot!'))
+    assert_equal(Map::DODGE_DEATH, Map::START.go('dodge!'))
 
     room = Map::START.go('tell a joke')
     assert_equal(Map::LASER_WEAPON_ARMORY, room)
