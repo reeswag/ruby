@@ -7,12 +7,18 @@
     <pre><%=room.description%></pre>
     <% if room.name == "Death" || room.name == "The End" %>
         <p><a href="/">Play Again?</a></p>
-    <% elsif room.name == "Laser Weapon Armory" || room.name == "Escape Pod" %>
+    <% elsif room.name == "Laser Weapon Armory" || room.name == "Escape Pod"%>
         <p>
         <form action="/game" method="POST">
             <input type="text" name="action"> <input type="SUBMIT">
         </form>
         </p>
+    <% elsif room.name == "Laser Weapon Armory - Try Again"%>
+        <p>
+        <form action="/game" method="POST">
+            <input type="text" name="action"> <input type="SUBMIT">
+        </form>
+        </p>    
     <% else %>
         <p>What is your decision?</p>
             <form action='/game' method='post'> 

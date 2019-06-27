@@ -1,16 +1,17 @@
 module Map
     class Room 
 
-        def initialize(name, description)
+        def initialize(name, description, limit = 20)
             @name = name
             @description = description
             @paths = {}
+            @guesses = 0 
+            @limit = limit
         end
 
         # these make it easy for you to access the variables
-        attr_reader :name
-        attr_reader :paths
-        attr_reader :description
+        attr_reader :name, :paths, :description, :limit
+        attr_accessor :guesses
 
         def go(direction)
             return @paths[direction]
@@ -19,7 +20,6 @@ module Map
         def add_paths(paths)
             @paths.update(paths) #.update adds one hash to another
         end
-
     end
 
     GT_CENTRAL_CORRIDOR = Room.new("Central Corridor",
@@ -55,6 +55,10 @@ module Map
         get the bomb.  The code is 3 digits.
         """)
     
+    GT_LASER_WEAPON_ARMORY_INCORRECT = Room.new("Laser Weapon Armory - Try Again",
+            """
+            BZZZZEDDD!
+            """, 10)     
     
     GT_THE_BRIDGE = Room.new("The Bridge",
         """
@@ -69,7 +73,6 @@ module Map
         weapons out yet, as they see the active bomb under your
         arm and don't want to set it off.
         """)
-    
     
     GT_ESCAPE_POD = Room.new("Escape Pod",
         """
@@ -190,9 +193,18 @@ module Map
         'slowly place the bomb' => GT_ESCAPE_POD
     })
 
+    code = "#{rand(1..9)}#{rand(1..9)}#{rand(1..9)}" 
+    p code
+
     GT_LASER_WEAPON_ARMORY.add_paths({
-        '123' => GT_THE_BRIDGE,
-        '*' => GT_CODE_DEATH
+        code => GT_THE_BRIDGE,
+        '*' => GT_LASER_WEAPON_ARMORY_INCORRECT
+    })
+
+    GT_LASER_WEAPON_ARMORY_INCORRECT.add_paths({
+            code => GT_THE_BRIDGE,
+            '*' => GT_LASER_WEAPON_ARMORY_INCORRECT,
+            'All Guesses Consumed' => GT_CODE_DEATH
     })
 
     GT_CENTRAL_CORRIDOR.add_paths({
@@ -262,6 +274,7 @@ module Map
     ROOM_NAMES = {
         'GT_CENTRAL_CORRIDOR' => GT_CENTRAL_CORRIDOR,
         'GT_LASER_WEAPON_ARMORY' => GT_LASER_WEAPON_ARMORY,
+        'GT_LASER_WEAPON_ARMORY_INCORRECT' => GT_LASER_WEAPON_ARMORY_INCORRECT,
         'GT_THE_BRIDGE' => GT_THE_BRIDGE,
         'GT_ESCAPE_POD' => GT_ESCAPE_POD,
         'GT_THE_END_WINNER' => GT_THE_END_WINNER,

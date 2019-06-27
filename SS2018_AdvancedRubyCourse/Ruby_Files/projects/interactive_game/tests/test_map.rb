@@ -1,4 +1,4 @@
-require "./lib/gothonweb/map_v1.rb"
+require "./lib/interactive_game/map.rb"
 require "test/unit"
 
 class TestMap < Test::Unit::TestCase
@@ -35,14 +35,12 @@ class TestMap < Test::Unit::TestCase
     assert_equal(start, start.go('down').go('up'))
   end
 
-  def test_gothon_game_map()
+  def test_game_map()
     assert_equal(Map::GT_SHOOT_DEATH, Map::GT_CENTRAL_CORRIDOR.go('shoot!'))
     assert_equal(Map::GT_DODGE_DEATH, Map::GT_CENTRAL_CORRIDOR.go('dodge!'))
 
     room = Map::GT_CENTRAL_CORRIDOR.go('tell a joke')
     assert_equal(Map::GT_LASER_WEAPON_ARMORY, room)
-
-    # complete this test by making it play the game
   end
 
   def test_session_loading()
