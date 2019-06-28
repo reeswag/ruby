@@ -34,14 +34,15 @@ end
 
 get '/game' do
     room = Map::load_room(session) # assignes the session map to the room variable
-    
     Map::ROOM_NAMES[session[:room]].guesses += 1 # adds to the page load count
-    p "Total Page Loads: #{Map::ROOM_NAMES[session[:room]].guesses}"
+    room_guesses = Map::ROOM_NAMES[session[:room]].guesses
+    room_limit = Map::ROOM_NAMES[session[:room]].limit
+    p "Total Page Loads: #{room_guesses}"
 
-    if room && Map::ROOM_NAMES[session[:room]].guesses < Map::ROOM_NAMES[session[:room]].limit # as long as the room exists and hasn't been accessed too many times it is shown.
+    if room && room_guesses < room_limit # as long as the room exists and hasn't been accessed too many times it is shown.
         erb :show_room, :locals => {:room => room}
     
-    elsif room && Map::ROOM_NAMES[session[:room]].guesses >= Map::ROOM_NAMES[session[:room]].limit # if the room exists and has been accessed too many times, it loads the appropriate room instead.
+    elsif room && room_guesses >= room_limit # if the room exists and has been accessed too many times, it loads the appropriate room instead.
         all_guesses_consumed = room.go("All Guesses Consumed")
         Map::save_room(session, all_guesses_consumed) # saves the next_room to the game session
         room = Map::load_room(session)

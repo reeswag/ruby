@@ -13,7 +13,8 @@ class TestAppV2 < Test::Unit::TestCase
     def test_outcomes
         @test_array_correct_gothon = [     #[scene, correct action, desired_outcome]
             ['GT_CENTRAL_CORRIDOR', 'tell a joke', 'Laser Weapon Armory','gothon'],
-            ['GT_LASER_WEAPON_ARMORY', '123', 'The Bridge','gothon'],
+            ['GT_LASER_WEAPON_ARMORY', Map::CODE, 'The Bridge','gothon'],
+            ['GT_LASER_WEAPON_ARMORY_INCORRECT', Map::CODE, 'The Bridge','gothon'],
             ['GT_THE_BRIDGE', 'slowly place the bomb', "Escape Pod",'gothon'],
             ['GT_ESCAPE_POD','2', "The End" && "Winner winner chicken dinner",'gothon']
         ]
@@ -28,7 +29,8 @@ class TestAppV2 < Test::Unit::TestCase
         @test_array_wrong_gothon = [     #[scene, wrong action, expected_outcome]
             ['GT_CENTRAL_CORRIDOR', 'shoot!', 'Death','gothon' ], #&& 'blaster'
             ['GT_CENTRAL_CORRIDOR', 'dodge!', 'Death','gothon' ], #&& 'dodge'
-            ['GT_LASER_WEAPON_ARMORY', '*' , 'Death','gothon' ], #&& 'buzzes'
+            ['GT_LASER_WEAPON_ARMORY', '*' , 'BZZZZEDDD!','gothon' ], #&& 'buzzes'
+            ['GT_LASER_WEAPON_ARMORY_INCORRECT', '*' , 'BZZZZEDDD!','gothon'],
             ['GT_THE_BRIDGE', 'throw the bomb', 'Death','gothon' ], #&& 'panic'
             ['GT_ESCAPE_POD','*', "The End" && "jam jelly",'gothon']
         ]
@@ -48,4 +50,31 @@ class TestAppV2 < Test::Unit::TestCase
         array_tester(@test_array_wrong_gothon)
         array_tester(@test_array_correct_humpty)
     end
+
+    def test_guesses
+        get '/' # get /
+        Map::ROOM_NAMES.each {|x,y| assert_equal(0, y.guesses)} # test that all room names have a guess count of 0
+        
+        Map::ROOM_NAMES.each do |x,y| 
+            post '/', params={:scene => x, :map => 'gothon'||'humpty'}
+            follow_redirect!
+        end
+
+        Map::ROOM_NAMES.each {|x,y| assert_equal(1, y.guesses)} # test that each room has a view count of 1
+        get '/' # redirect back to / 
+        Map::ROOM_NAMES.each {|x,y| assert_equal(0, y.guesses)} # test that all guess counts have been reset to 0
+    end
+
+    def test_game_complexity
+        # get /
+        # assign CODE to an instance variable
+        # get //
+        # check that CODE is unchanged
+
+        # get /
+        # assign CODE to an instance variable
+        # Reset Game
+        # check that CODE is =! to the instance variable
+    end
+
 end

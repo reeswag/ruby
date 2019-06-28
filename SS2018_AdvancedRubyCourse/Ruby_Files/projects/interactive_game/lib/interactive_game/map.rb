@@ -22,6 +22,9 @@ module Map
         end
     end
 
+    CODE = "#{rand(1..9)}#{rand(1..9)}#{rand(1..9)}" 
+    puts "Alarm Code: #{CODE}"
+
     GT_CENTRAL_CORRIDOR = Room.new("Central Corridor",
         """
         The Gothons of Planet Percal #25 have invaded your ship and destroyed
@@ -193,16 +196,13 @@ module Map
         'slowly place the bomb' => GT_ESCAPE_POD
     })
 
-    code = "#{rand(1..9)}#{rand(1..9)}#{rand(1..9)}" 
-    p code
-
     GT_LASER_WEAPON_ARMORY.add_paths({
-        code => GT_THE_BRIDGE,
+        CODE => GT_THE_BRIDGE,
         '*' => GT_LASER_WEAPON_ARMORY_INCORRECT
     })
 
     GT_LASER_WEAPON_ARMORY_INCORRECT.add_paths({
-            code => GT_THE_BRIDGE,
+            CODE => GT_THE_BRIDGE,
             '*' => GT_LASER_WEAPON_ARMORY_INCORRECT,
             'All Guesses Consumed' => GT_CODE_DEATH
     })
