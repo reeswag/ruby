@@ -9,6 +9,8 @@ enable :sessions
 set :session_secret, 'BADSECRET'
 
 get '/' do
+    Map::code_creator()
+    Map::pod_creator()
     Map::ROOM_NAMES.each {|x,y| y.guesses = 0} # resets the numeber of guesses for each play through. Elements such as the gothon alarm code aren't reset until the game is shutdown.
     erb :map_choice, :locals => {:scene => nil}
 end

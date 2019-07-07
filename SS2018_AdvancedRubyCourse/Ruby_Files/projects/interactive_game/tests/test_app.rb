@@ -13,10 +13,10 @@ class TestAppV2 < Test::Unit::TestCase
     def test_outcomes
         @test_array_correct_gothon = [     #[scene, correct action, desired_outcome]
             ['GT_CENTRAL_CORRIDOR', 'tell a joke', 'Laser Weapon Armory','gothon'],
-            ['GT_LASER_WEAPON_ARMORY', Map::CODE, 'The Bridge','gothon'],
-            ['GT_LASER_WEAPON_ARMORY_INCORRECT', Map::CODE, 'The Bridge','gothon'],
+            ['GT_LASER_WEAPON_ARMORY', Map::code_accessor(), 'The Bridge','gothon'],
+            ['GT_LASER_WEAPON_ARMORY_INCORRECT', Map::code_accessor(), 'The Bridge','gothon'],
             ['GT_THE_BRIDGE', 'slowly place the bomb', "Escape Pod",'gothon'],
-            ['GT_ESCAPE_POD','2', "The End" && "Winner winner chicken dinner",'gothon']
+            ['GT_ESCAPE_POD', Map::pod_accessor(), "The End" && "Winner winner chicken dinner",'gothon']
         ]
 
         @test_array_correct_humpty = [     #[scene, correct action, desired_outcome]
@@ -52,29 +52,43 @@ class TestAppV2 < Test::Unit::TestCase
     end
 
     def test_guesses
-        get '/' # get /
+        get '/'
         Map::ROOM_NAMES.each {|x,y| assert_equal(0, y.guesses)} # test that all room names have a guess count of 0
         
         Map::ROOM_NAMES.each do |x,y| 
             post '/', params={:scene => x, :map => 'gothon'||'humpty'}
             follow_redirect!
         end
-
+       
         Map::ROOM_NAMES.each {|x,y| assert_equal(1, y.guesses)} # test that each room has a view count of 1
-        get '/' # redirect back to / 
+        get '/'
         Map::ROOM_NAMES.each {|x,y| assert_equal(0, y.guesses)} # test that all guess counts have been reset to 0
     end
 
-    def test_game_complexity
-        # get /
-        # assign CODE to an instance variable
-        # get //
-        # check that CODE is unchanged
-
-        # get /
-        # assign CODE to an instance variable
-        # Reset Game
-        # check that CODE is =! to the instance variable
+    def test_random_alarm_code
+        get '/' # get /
+        test_code = Map::code_accessor() # assign CODE to an instance variable
+        test_pod = Map::pod_accessor() 
+        puts test_code
+        get '/'
+        assert_not_equal(test_code, Map::code_accessor()) # check that the alarm code has been randomised
     end
 
+    def test_random_pod
+        test_pod_array_1 = []
+        test_pod_array_2 = []
+        
+        100.times do
+            get '/'
+            test_pod = Map::pod_accessor()
+            test_pod_array_1.push(test_pod.to_i)
+            get '/'
+            test_pod = Map::pod_accessor()
+            test_pod_array_2.push(test_pod.to_i)
+        end
+
+        p test_pod_array_1.reduce(:+)
+        p test_pod_array_2.reduce(:+)
+        assert_not_equal(test_pod_array_1.reduce(:+), test_pod_array_2.reduce(:+))
+    end
 end

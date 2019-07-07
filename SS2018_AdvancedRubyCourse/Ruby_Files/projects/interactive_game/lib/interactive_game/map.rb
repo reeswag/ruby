@@ -20,10 +20,11 @@ module Map
         def add_paths(paths)
             @paths.update(paths) #.update adds one hash to another
         end
-    end
 
-    CODE = "#{rand(1..9)}#{rand(1..9)}#{rand(1..9)}" 
-    puts "Alarm Code: #{CODE}"
+        def reset_paths()
+            @paths = {}
+        end
+    end
 
     GT_CENTRAL_CORRIDOR = Room.new("Central Corridor",
         """
@@ -141,11 +142,6 @@ module Map
         into jam jelly.
         """
         )
-
-    GT_ESCAPE_POD.add_paths({
-        '*' => GT_THE_END_LOSER,
-        '2' => GT_THE_END_WINNER
-    })
     
     GT_GENERIC_DEATH = Room.new("Death", "You died.")
 
@@ -191,26 +187,15 @@ module Map
         """  
         )
 
-    GT_THE_BRIDGE.add_paths({
-        'throw the bomb' => GT_BOMB_DEATH,
-        'slowly place the bomb' => GT_ESCAPE_POD
-    })
-
-    GT_LASER_WEAPON_ARMORY.add_paths({
-        CODE => GT_THE_BRIDGE,
-        '*' => GT_LASER_WEAPON_ARMORY_INCORRECT
-    })
-
-    GT_LASER_WEAPON_ARMORY_INCORRECT.add_paths({
-            CODE => GT_THE_BRIDGE,
-            '*' => GT_LASER_WEAPON_ARMORY_INCORRECT,
-            'All Guesses Consumed' => GT_CODE_DEATH
-    })
-
     GT_CENTRAL_CORRIDOR.add_paths({
         'shoot!' => GT_SHOOT_DEATH,
         'dodge!' => GT_DODGE_DEATH,
         'tell a joke' => GT_LASER_WEAPON_ARMORY
+    })  
+
+    GT_THE_BRIDGE.add_paths({
+        'throw the bomb' => GT_BOMB_DEATH,
+        'slowly place the bomb' => GT_ESCAPE_POD
     })
 
     HTY_TITLE = Room.new("Title",
@@ -297,5 +282,44 @@ module Map
 
     def Map::save_room(session, room) # Store the room in the session for later, using its name
         session[:room] = ROOM_NAMES.key(room)
+    end
+
+    def Map::code_creator()
+        @@code = "#{rand(1..9)}#{rand(1..9)}#{rand(1..9)}" 
+        puts "Alarm Code: #{@@code}"
+
+        GT_LASER_WEAPON_ARMORY.reset_paths()
+        GT_LASER_WEAPON_ARMORY_INCORRECT.reset_paths()
+
+        GT_LASER_WEAPON_ARMORY.add_paths({
+            @@code => GT_THE_BRIDGE,
+            '*' => GT_LASER_WEAPON_ARMORY_INCORRECT
+        })
+    
+        GT_LASER_WEAPON_ARMORY_INCORRECT.add_paths({
+            @@code => GT_THE_BRIDGE,
+            '*' => GT_LASER_WEAPON_ARMORY_INCORRECT,
+            'All Guesses Consumed' => GT_CODE_DEATH
+        })
+    end
+
+    def Map::code_accessor()
+        return @@code 
+    end   
+    
+    def Map::pod_creator()
+        @@correct_pod = "#{rand(1..5)}" 
+        puts "Correct Pod: #{@@correct_pod}"
+
+        GT_ESCAPE_POD.reset_paths()
+
+        GT_ESCAPE_POD.add_paths({
+            '*' => GT_THE_END_LOSER,
+            @@correct_pod => GT_THE_END_WINNER
+        })
+    end
+
+    def Map::pod_accessor()
+        return @@correct_pod
     end
 end
