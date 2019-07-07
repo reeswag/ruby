@@ -65,6 +65,22 @@ class TestAppV2 < Test::Unit::TestCase
         Map::ROOM_NAMES.each {|x,y| assert_equal(0, y.guesses)} # test that all guess counts have been reset to 0
     end
 
+    def test_random_elements
+        def random_seeder(seed)
+            srand(seed)
+            get '/' # get /
+            return [Map::code_accessor(), Map::pod_accessor()]
+        end
+
+    test_1, test_2, test_3, test_4 = random_seeder(123), random_seeder(321),random_seeder(111),random_seeder(111)
+    assert_not_equal(test_1, test_2) # the two tests below confirms that the randomness of the correct alarm and pod choices is functions correctly when seeded. 
+    assert_equal(test_3, test_4)
+    end
+end
+
+=begin
+Redacted Tests
+
     def test_random_alarm_code
         get '/' # get /
         test_code = Map::code_accessor() # assign CODE to an instance variable
@@ -91,4 +107,18 @@ class TestAppV2 < Test::Unit::TestCase
         p test_pod_array_2.reduce(:+)
         assert_not_equal(test_pod_array_1.reduce(:+), test_pod_array_2.reduce(:+))
     end
-end
+
+    def test_random_elements
+        srand(123)
+        get '/' # get /
+        test_code = Map::code_accessor() # assign CODE to an instance variable
+        test_pod = Map::pod_accessor() 
+        srand(321)
+        get '/'
+        test_code_2 = Map::code_accessor() # assign CODE to an instance variable
+        test_pod_2 = Map::pod_accessor() 
+        p test_code_2, test_pod_2
+        assert_not_equal(test_code, test_code_2) # check that the alarm code has been randomised
+        assert_not_equal(test_pod, test_pod_2) # check that the alarm code has been randomised
+    end
+=end

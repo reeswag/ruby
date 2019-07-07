@@ -1212,3 +1212,65 @@ Within the appropriate view:
   </li>
 <% end %>
 ```
+
+#### Testing Randomness within Ruby - Unit Testing
+
+https://softwareengineering.stackexchange.com/questions/147134/how-should-i-test-randomness 
+
+https://www.sitepoint.com/rubymine-code-insight-for-ruby-and-rails/ 
+
+##### Kernel#rand and Random
+In the past, a random range of numbers might be described like
+
+```
+rand(max - min) + min
+```
+For example, if you wanted to generate a number between 7 and 10, inclusive, you would write:
+```
+rand(4) + 7
+```
+Ruby lets you do this in a much more readable manner by passing a Range object to Kernel#rand.
+```
+>> rand(7..10) 
+=> 9
+>> rand(1.5..2.8)
+=> 1.67699693779624
+```
+
+Kernel#srand sets the seed for Kernel#rand. This can be used to generate a reproducible sequence of numbers. This might be handy if you are trying to isolate / reproduce a bug.
+```
+>> srand(333)
+>> 10.times.map { rand(10) }
+=> [3, 3, 6, 3, 7, 7, 6, 4, 4, 9]
+>> 10.times.map { rand(10) }
+=> [7, 5, 5, 8, 8, 7, 3, 3, 3, 9]
+
+>> srand(333)
+>> 10.times.map { rand(10) }
+=> [3, 3, 6, 3, 7, 7, 6, 4, 4, 9]
+>> 10.times.map { rand(10) }
+=> [7, 5, 5, 8, 8, 7, 3, 3, 3, 9]
+```
+If you need multiple generators, then you can access the complete interface to Ruby’s PRNG (Pseudo-Random Number Generator) through Random.
+```
+>> rng = Random.new
+>> rng.rand(10) 
+=> 4
+```
+
+Random#new can take a seed value as an argument. The #== operator will return true if two Random objects have the same internal state (they started with the same seed and are on the same generation).
+
+```
+>> rng1 = Random.new(123)
+>> rng2 = Random.new(123)
+>> rng1 == rng2
+=> true
+>> rng1.rand
+=> 0.6964691855978616
+>> rng1 == rng2
+=> false
+>> rng2.rand
+>> 0.6964691855978616
+>> rng1 == rng2
+=> true
+```
