@@ -1,4 +1,4 @@
-#EMAILER Project
+# Emailer Project
 
 ## Goals 
 
