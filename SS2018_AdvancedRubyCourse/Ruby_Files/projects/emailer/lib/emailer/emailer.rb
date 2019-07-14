@@ -26,7 +26,7 @@ module EMAILER
 
             We have recieved the below feedback and will endevour to respond to you shortly!
 
-            #{feedback}
+            \"#{feedback}\"
 
             All the best,
 

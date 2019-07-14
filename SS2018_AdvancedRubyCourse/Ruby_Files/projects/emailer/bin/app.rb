@@ -14,5 +14,5 @@ end
 
 post '/' do
     EMAILER::feedback_message('reeswag@gmail.com', params[:email], 'Feedback', params[:user], params[:feedback])
-    erb:feedback_recieved
+    erb:feedback_recieved, :locals => {:feedback => params[:feedback]}
 end
