@@ -1,8 +1,8 @@
-cp -r skeleton voting
-cd voting
-mv NAME.gemspec voting.gemspec
-mv bin/NAME bin/voting
-mv tests/test_NAME.rb tests/test_voting.rb
-mv lib/NAME lib/voting
-mv lib/NAME.rb lib/voting.rb
+cp -r skeleton emailer
+cd emailer
+mv NAME.gemspec emailer.gemspec
+mv bin/NAME bin/emailer
+mv tests/test_NAME.rb tests/test_emailer.rb
+mv lib/NAME lib/emailer
+mv lib/NAME.rb lib/emailer.rb
 find . -name "*NAME*" -print
