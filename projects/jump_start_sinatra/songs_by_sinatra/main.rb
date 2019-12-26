@@ -1,6 +1,12 @@
+require './song'
 require 'sinatra'
+require 'slim'
+require 'sass'
+
 set:public_folder, 'public'
 set:views, 'views'
+
+get('/styles.css'){ scss :styles }
 
 get '/' do
     slim :home
