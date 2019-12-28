@@ -1,10 +1,7 @@
-require './song'
 require 'sinatra'
 require 'slim'
 require 'sass'
-
-set:public_folder, 'public'
-set:views, 'views'
+require './song'
 
 get('/styles.css'){ scss :styles }
 
