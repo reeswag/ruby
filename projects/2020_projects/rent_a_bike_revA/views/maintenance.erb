@@ -1,0 +1,44 @@
+<html>
+    <head>
+        <title>Rent a Bike!</title>
+    </head>
+<body>
+    <h1>Maintenance Hub</h1>
+    
+    <pre>Bikes Currently Out for Maintenance:</pre>
+    <pre><%=message%></pre>
+    <pre>Select Option</pre>
+    <form action="/maintenance" method="POST">
+            <ul style="list-style-type:none;">
+                
+                <%if maintenance.bike_count == 0 %>
+                    <li>
+                        <label class='radio'>
+                            Retrieve Broken Bikes:  <input type='radio' name='maintenance_choice' value='retrieve_broken_bikes'required>
+                        </label>
+                    </li>
+                <%else %>
+                    <li>
+                        <label class='radio'>
+                            Retrieve Broken Bikes:  <input type='radio' name='maintenance_choice' value='retrieve_broken_bikes'required>
+                        </label>
+                    </li>
+
+                    <li>
+                        <label class='radio'>
+                            Return Working Bikes:  <input type='radio' name='maintenance_choice' value='return_working_bikes'required>
+                        </label>
+                    </li>
+
+                    <li>
+                        <label class='radio'>
+                            Repair Bikes:  <input type='radio' name='maintenance_choice' value='repair_bikes'required>
+                        </label>
+                    </li>
+                <%end %>
+            </ul>
+            <button type='SUBMIT' class='btn btn-primary'>Submit Request</button>
+        </form>
+        <br>Error Log: <%=error%>
+</body>
+</html> 

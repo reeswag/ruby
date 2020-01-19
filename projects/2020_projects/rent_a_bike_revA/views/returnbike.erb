@@ -1,0 +1,25 @@
+<html>
+    <head>
+        <title>Rent a Bike!</title>
+    </head>
+<body>
+    <h1>Return Hub</h1>
+    
+    <pre>Bikes Currently Out for Rental:</pre>
+    <pre><%=message%></pre>
+    <form action="/returnbike" method="POST">
+            <ul style="list-style-type:none;">
+                <% bikes.each_with_index do |value, index| %>
+                    <li>
+                        <label class='radio'>
+                           <%="\tBike #{index.to_s}: #{value.condition}:"%><input type='radio' name='bike_choice' value=<%=index%> required>
+                        </label>
+                    </li>
+                <%end %>
+                <% unless bike_count == 0 %>                 
+                    <br><button type='SUBMIT' class='btn btn-primary'>Return Bike</button>
+                <%end %>
+            </ul>
+        </form>
+</body>
+</html> 

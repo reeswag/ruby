@@ -7,6 +7,6 @@ p Released Date: #{@song.released_on.strftime("%e %B %Y") if @song.released_on}
 pre= @song.lyrics
 p <a href="/songs">back to songs index</a>
 p <a href="/songs/#{@song.id}/edit">edit this song</a>
-form action="/songs/{@song.id}" method="POST"
+form action="/songs/#{@song.id}" method="POST"
     input type="hidden" name="_method" value="DELETE"
     input type="submit" value="delete this song"

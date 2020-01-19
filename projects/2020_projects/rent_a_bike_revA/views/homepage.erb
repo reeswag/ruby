@@ -1,0 +1,73 @@
+<html>
+    <head>
+        <title>Rent a Bike!</title>
+    </head>
+<body>
+    <h1>Welcome To Rent a Bike!</h1>
+    <p>Please enter your username and request below...</p>
+    <form action="/" method="POST">
+            <ul style="list-style-type:none;">
+                
+                <%if user == nil %>
+                    <li>
+                        <label class='text'>
+                        Username:    <input type='text' name='username'required>
+                        </label>
+                    </li>
+
+                    <li>
+                        <label class='radio'>
+                            Login:  <input type='radio' name='user_choice' value='login'required>
+                        </label>
+                    </li>
+
+                    <li>
+                        <label class='radio'>
+                            Register New User:  <input type='radio' name='user_choice' value='register_new_user'required>
+                        </label>
+                    </li>
+                <%else %>
+                    <li>
+                        <label class='text'>
+                        Current User:   <%=user.username%> <input type='hidden' name='username' value=<%= user.username%>> 
+                        </label>
+                    </li>
+
+                    <li>
+                        <label class='radio'>
+                            Hire Bike:  <input type='radio' name='user_choice' value='hire_bike'required>
+                        </label>
+                    </li>
+
+                    <li>
+                        <label class='radio'>
+                            Return Bike:    <input type='radio' name='user_choice' value='return_bike'required>
+                        </label>
+                    </li>   
+
+                    <li>
+                        <label class='radio'>
+                            View User Account:  <input type='radio' name='user_choice' value='view_user_account'required>
+                        </label>
+                    </li>
+                    
+                    <li>
+                        <label class='radio'>
+                            Report Damage:  <input type='radio' name='user_choice' value='report_damage'required>
+                        </label>
+                    </li>
+                    
+                    <li>
+                        <label class='radio'>
+                            Logout:  <input type='radio' name='user_choice' value='logout'required>
+                        </label>
+                    </li>
+                <%end %>
+
+            </ul>
+            <button type='SUBMIT' class='btn btn-primary'>Submit Request</button>
+        </form>
+
+    <pre hidden><%=hidden%></pre>
+</body>
+</html> 
