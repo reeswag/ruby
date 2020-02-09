@@ -9,8 +9,8 @@ module EMAILER
             :port => '587',
             :enable_starttls_auto => true,
             :authenitcation => :plain,
-            :user_name => 'postmaster@sandbox74fb8b2e824a43d59af7df8a5e334972.mailgun.org',
-            :password => 'a8318745b824d30f2dde07c1dd7e1f01-afab6073-6cd6dc51'
+            :user_name => 'not_real@sandbox.mailgun.org',
+            :password => 'fake_password'
         }
     }
 
